@@ -29,7 +29,7 @@ if "visibility" not in st.session_state:
     st.session_state.visibility = "visible"
     st.session_state.disabled = False
 
-c1, c2 = st.comlumns(2)
+c1, c2 = st.columns(2)
 input_choice = c1.selectbox(
     "Input format:",
     ("Type/Paste", "Upload"),
