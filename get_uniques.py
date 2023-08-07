@@ -43,18 +43,43 @@ sep_choice = c2.selectbox(
 )
 
 
+if input_choice == "Type/Paste":
+    user_input = st.text_area(
+        "Type/Paste list here:", 
+        value="", 
+        height=None, 
+        max_chars=None, 
+        key=None, 
+        help=None, 
+        on_change=None, 
+        args=None, 
+        kwargs=None, 
+        placeholder=None, 
+        disabled=False, 
+        label_visibility="visible")
+else:
+    col_name = st.text_input("Name of column with data:",)
+    user_input = st.file_uploader("Select `csv` file:", type=['csv'],accept_multiple_files=False)
 
 
-st.text_area(
-    "Type/Paste list here:", 
-    value="", 
-    height=None, 
-    max_chars=None, 
-    key=None, 
-    help=None, 
-    on_change=None, 
-    args=None, 
-    kwargs=None, 
-    placeholder=None, 
-    disabled=False, 
-    label_visibility="visible")
+def getUniques_from_textInput(user_input:str, sep:str):
+    inp_list = user_input.split(sep)
+    uniques_list = list(set(inp_list))
+
+    return uniques_list
+
+def getUniques_from_csvInput(file_upload, data_col:str):
+    df = pd.read_csv(file_upload)
+    data_list = df[data_col].to_list()
+    uniques_list = list(set(inp_list))
+
+    return uniques_list
+
+
+if "button_clicked" not in st.session_state:
+    st.session_state.button_clicked = False
+
+def click_button():
+    st.session_state.button_clicked = not st.session_state.button_clicked
+
+
